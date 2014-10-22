@@ -1,6 +1,7 @@
 // Facial Detection Project
 // Serial Implementation
 // Tyler Apgar and Amadeus Sanchez
+// 228 seconds elapsed.
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -9,6 +10,7 @@
 #include <stdio.h>
 #include <string>
 #include <fstream>
+#include <ctime>
 
 using namespace std;
 using namespace cv;
@@ -28,6 +30,8 @@ int main(int argc, const char** argv)
 	ifstream myfile(filenameInput);
 	if (myfile.is_open())
 	{
+		time_t start, end;
+		time(&start);
 		while (getline(myfile, filename))
 		{
 			//setup image file used in the capture process
@@ -60,13 +64,15 @@ int main(int argc, const char** argv)
 			//print the output
 			string outputFilename;
 			int indexExtension = filename.find(".jpg");
-			outputFilename+=filename.substr(0, indexExtension - 1);
+			outputFilename+=filename.substr(0, indexExtension);
 			outputFilename += outputImageSignature;
 			outputFilename += imageExtension;
 			imwrite(outputFilename.c_str(), captureFrame);
-
 		}
 		myfile.close();
+		time(&end);
+		double dif = difftime(end, start);
+		printf("Elasped time is %.2lf seconds.", dif);
 	}
 
 	else cout << "Unable to open file";

@@ -39,11 +39,11 @@ int main(int argc, const char** argv)
 	const char outputImageSignature[] = "_output";
 	const char imageExtension[] = ".jpg";
 	//create the cascade classifier object used for the face detection
-	
+
 
 	int desiredNumThreads;
 	ifstream fin(filenameInput);
-	
+
 	if (fin.is_open())
 	{
 		cout << "How many threads? "; cin >> desiredNumThreads;
@@ -62,7 +62,6 @@ int main(int argc, const char** argv)
 				Mat grayscaleFrame;
 				captureFrame = imread(filename.c_str(), CV_LOAD_IMAGE_COLOR);
 
-
 				// convert captured image to gray scale and equalize it
 				// so that it can boost the detection rate
 				cvtColor(captureFrame, grayscaleFrame, CV_BGR2GRAY);
@@ -79,7 +78,7 @@ int main(int argc, const char** argv)
 					Point pt1(faces[i].x + faces[i].width, faces[i].y + faces[i].height);
 					Point pt2(faces[i].x, faces[i].y);
 
-					rectangle(captureFrame, pt1, pt2, cvScalar(0, 255, 0, 0), 1, 8, 0);
+					rectangle(captureFrame, pt1, pt2, cvScalar(0, 255, 0, 0), 3, 8, 0);
 				}
 
 				//print the output
@@ -90,20 +89,17 @@ int main(int argc, const char** argv)
 				outputFilename += imageExtension;
 				imwrite(outputFilename.c_str(), captureFrame);
 
-
 				filename = getNextTask(fin);	// If there are no more tasks, sets n to 0 AND sets Done to true
 			}
 			fin.close();
-			}
+		}
 		double endTime = omp_get_wtime();
 		cout << "Completing all tasks using " << desiredNumThreads << " required " << (endTime - startTime) << " seconds." << endl;
-
-		
 	}
 	else{
 		cout << "Unable to open file";
 	}
-	
-		
+
+
 	return 0;
 }

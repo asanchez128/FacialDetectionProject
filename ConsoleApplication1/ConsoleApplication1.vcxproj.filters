@@ -23,4 +23,7 @@
     <Xml Include="haarcascade_eye_tree_eyeglasses.xml" />
     <Xml Include="haarcascade_frontalface_alt.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="filenameInput.txt" />
+  </ItemGroup>
 </Project>
